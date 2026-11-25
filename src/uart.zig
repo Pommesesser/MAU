@@ -22,7 +22,9 @@ const WriteReg = enum(u3) {
 
 // these are masks for now
 // probably replace with function per mask
-const lsr_tx_idle: u8 = 1 << 5;
+fn thrCanAccept() bool {
+    return (read(.lsr) & (1 << 5)) != 0;
+}
 
 fn read(r: ReadReg) u8 {
     return base[@backingInt(r)];
@@ -33,6 +35,6 @@ fn write(r: WriteReg, value: u8) void {
 }
 
 pub fn putcSync(c: u8) void {
-    while ((read(.lsr) & lsr_tx_idle) == 0) {}
+    while (!thrCanAccept()) {}
     write(.thr, c);
 }
