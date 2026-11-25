@@ -20,10 +20,12 @@ const WriteReg = enum(u3) {
     scr = 7, // unused
 };
 
-// these are masks for now
-// probably replace with function per mask
 fn thrCanAccept() bool {
     return (read(.lsr) & (1 << 5)) != 0;
+}
+
+fn rhrDataReady() bool {
+    return (read(.lsr) & (1 << 0)) != 0;
 }
 
 fn read(r: ReadReg) u8 {
@@ -37,4 +39,12 @@ fn write(r: WriteReg, value: u8) void {
 pub fn putcSync(c: u8) void {
     while (!thrCanAccept()) {}
     write(.thr, c);
+}
+
+pub fn getc() ?u8 {
+    if (!rhrDataReady()) {
+        return null;
+    }
+
+    return read(.rhr);
 }
