@@ -41,7 +41,7 @@ pub fn putcSync(c: u8) void {
     write(.thr, c);
 }
 
-pub fn getc() ?u8 {
+fn getc() ?u8 {
     if (!rhrDataReady()) {
         return null;
     }
