@@ -1,9 +1,9 @@
 const base: *volatile [8]u8 = @ptrFromInt(0x1000_0000);
 
-const Reg = enum(u3) {
-    thr = 0,
+const ReadReg = enum(u3) {
+    rhr = 0,
     ier = 1,
-    fcr = 2,
+    isr = 2,
     lcr = 3,
     mcr = 4,
     lsr = 5,
@@ -11,13 +11,22 @@ const Reg = enum(u3) {
     scr = 7,
 };
 
+const WriteReg = enum(u3) {
+    thr = 0,
+    ier = 1,
+    fcr = 2,
+    lcr = 3,
+    mcr = 4,
+    scr = 7,
+};
+
 const lsr_tx_idle: u8 = 1 << 5;
 
-fn read(r: Reg) u8 {
+fn read(r: ReadReg) u8 {
     return base[@backingInt(r)];
 }
 
-fn write(r: Reg, value: u8) void {
+fn write(r: WriteReg, value: u8) void {
     base[@backingInt(r)] = value;
 }
 
