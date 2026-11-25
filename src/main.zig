@@ -1,0 +1,1 @@
+export fn kmain() void {}
