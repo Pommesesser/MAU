@@ -24,6 +24,7 @@ pub fn build(b: *std.Build) void {
         .code_model = .medany,
     });
     kernel_mod.addAssemblyFile(b.path("src/start.S"));
+    kernel_mod.addAssemblyFile(b.path("src/csr.S"));
 
     const kernel = b.addExecutable(.{
         .name = "mau.elf",
