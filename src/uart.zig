@@ -5,10 +5,7 @@ const ReadReg = enum(u3) {
     ier = 1, // interrupt enable register
     isr = 2, // interrupt status register
     lcr = 3, // line control register
-    mcr = 4, // unused
     lsr = 5, // line status register
-    msr = 6, // unused
-    scr = 7, // unused
 };
 
 const WriteReg = enum(u3) {
@@ -16,8 +13,6 @@ const WriteReg = enum(u3) {
     ier = 1, // interrupt enable register
     fcr = 2, // FIFO control register
     lcr = 3, // line control register
-    mcr = 4, // unused
-    scr = 7, // unused
 };
 
 fn thrCanAccept() bool {
